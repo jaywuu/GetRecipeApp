@@ -10,7 +10,16 @@ export const clearResults = () => {
   elements.searchResPages.innerHTML = '';
 };
 
-const limitRecipeTitle = (title, limit = 17) => {
+export const highlightSelected = id => {
+  const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+  resultsArr.forEach(el => {
+    el.classList.remove('results__link')
+  });
+
+  document.querySelector(`results__linka[href=""#${id}"]`).classList.add('results__link--active');
+};
+
+export const limitRecipeTitle = (title, limit = 17) => {
   const newTitle = [];
   if (title.length > 17) {
     title.split(' ').reduce((acc, cur) => {
@@ -63,7 +72,7 @@ const renderButtons = (page, numResults, resPerPage) => {
   } else if (page < pages) {
     button = `
     ${createButton(page, 'next')}
-    ${creatButton(page, 'prev')}
+    ${createButton(page, 'prev')}
     `
   }
   elements.searchResPages.insertAdjacentHTML('afterbegin', button);
